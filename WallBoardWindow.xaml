@@ -1,0 +1,89 @@
+﻿<Window x:Class="WallBoardPBX.WallBoardWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WallBoardPBX"
+        mc:Ignorable="d"  
+        Title="WallBoardPBX" Background="#FF2B3658" WindowStartupLocation="CenterScreen" 
+        MinWidth="1300" MinHeight="650" Width="1300" Height="650" MaxWidth="1300" MaxHeight="650">
+    
+    <Grid x:Name="MainGrid" VerticalAlignment="Top" HorizontalAlignment="Left">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="420"/>
+            <RowDefinition Height="210"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="ColumnOne" Width="5*"/>
+            <ColumnDefinition x:Name="ColumnTwo" Width="21*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border 
+            Grid.Column="0" Grid.Row="0" Background="Transparent" MinWidth="250" MinHeight="420" Height="420" MaxHeight="420" Width="250" MaxWidth="250" />
+
+        <Image Margin="0,10,0,0" Source="/res/login_image.png" HorizontalAlignment="Center" VerticalAlignment="Top" Height="80" Width="80"/>
+
+        <Label x:Name="LoginStatusLabel" Content="Konto AMI" FontSize="22" FontWeight="Bold" Margin="0,80,0,0" Height="40" Width="200"
+               Style="{StaticResource LabelCustomStyle}"/>
+
+        <Label Content="Login" Margin="0,111,0,0" Style="{StaticResource LabelCustomStyle}"/>
+        <TextBox x:Name="LoginTextBox" Margin="0,145,0,0"  Style="{StaticResource TextBoxCustomStyle}"/>
+
+        <Label x:Name="PasswordLabel" Content="Hasło" Margin="0,171,0,0" Style="{StaticResource LabelCustomStyle}"/>
+        <PasswordBox x:Name="PasswordTextBox" PasswordChar="*"
+                     HorizontalAlignment="Center" VerticalAlignment="Top" 
+                     Width="200" Height="25" Margin="0,205,0,0" 
+                     FontSize="16" Background="#FFAFCBF7" />
+
+        <Label Content="Adres IP PBX" Margin="0,231,0,0" Style="{StaticResource LabelCustomStyle}"/>
+        <TextBox x:Name="IPTextBox" Margin="0,265,0,0" MaxLength="15" Style="{StaticResource TextBoxCustomStyle}"/>
+
+        <Label Content="Numer kolejki" Margin="0,291,0,0" Style="{StaticResource LabelCustomStyle}"/>
+        <TextBox x:Name="NumberTextBox" Margin="0,325,0,0" MaxLength="12" Style="{StaticResource TextBoxCustomStyle}"/>
+
+        <Button x:Name="ConnectButton" Content="Połącz" Margin="0,360,0,0" Click="ConnectButton_Click" Background="#FF0E9C30"
+                Style="{StaticResource ButtonCustomStyle}" />
+        <Button x:Name="DisconnectButton" Content="Rozłącz" Margin="0,360,0,0" Click="DisconnectButton_Click" Background="#FF7F0202" Visibility="Collapsed"  IsEnabled="False"
+                Style="{StaticResource ButtonCustomStyle}"/>
+
+        <Label x:Name="AgentDataGridLabel" Grid.Column="1" Content="Konsultanci" HorizontalAlignment="Left" Margin="10,10,0,0" FontSize="36" FontWeight="Bold"
+               Style="{StaticResource LabelCustomStyle}"/>
+
+        <Border x:Name="AgentBorder" Grid.Column="1" Grid.Row="0" Background="Transparent">
+            <DataGrid x:Name="AgentDataGrid" Width="1000" MaxHeight="350" Margin="10,70,30,30"
+                      ItemsSource="{Binding queueMembers}" Style="{StaticResource DataGridCustomStyle}">
+                <DataGrid.Columns >
+                    <DataGridTextColumn Header="Nazwa" Binding="{Binding Name}" Width="140"/>
+                    <DataGridTextColumn Header="Numer" Binding="{Binding Number}" Width="90"/>
+                    <DataGridTextColumn Header="Typ" Binding="{Binding Membership}" Width="130"/>
+                    <DataGridTextColumn Header="Obsłużone" Binding="{Binding CallsTaken}" Width="120"/>
+                    <DataGridTextColumn Header="Ostatnio" Binding="{Binding LastCall}" Width="160"/>
+                    <DataGridTextColumn Header="Rozmawia?" CellStyle="{StaticResource DataGridInCallColumnStyle}" Binding="{Binding InCall}" Width="120" />
+                    <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="140"/>
+                    <DataGridTextColumn Header="Pauza?" Binding="{Binding Paused}" Width="100"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
+        <Label x:Name="QueueDataGridLabel" Grid.Column="0" Grid.Row="1" Content="Kolejka" HorizontalAlignment="Left" Margin="40,0,0,0" FontSize="36" FontWeight="Bold"
+               Style="{StaticResource LabelCustomStyle}"/>
+        <Border x:Name="QueueBorder" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2"
+                Background="Transparent" VerticalAlignment="Top"
+                Height="210" MinHeight="210" MaxHeight="210"  Width="1300" MinWidth="1300" MaxWidth="1300" >
+            <DataGrid x:Name="QueueDataGrid" ColumnHeaderHeight="35" MinRowHeight="50" MinColumnWidth="50" Width="1220" Height="100"
+                      ItemsSource="{Binding queue}" Style="{StaticResource DataGridCustomStyle}">
+                <DataGrid.Columns >
+                    <DataGridTextColumn Header="Numer" Binding="{Binding Number}" Width="120"/>
+                    <DataGridTextColumn Header="Limit" Binding="{Binding Max}" Width="100"/>
+                    <DataGridTextColumn Header="Obecnie" Binding="{Binding Calls}" Width="120"/>
+                    <DataGridTextColumn Header="Algorytm" Binding="{Binding Strategy}" Width="140"/>
+                    <DataGridTextColumn Header="Śr. oczekiwanie" Binding="{Binding Holdtime}" Width="180"/>
+                    <DataGridTextColumn Header="Śr. czas rozmów" Binding="{Binding TalkTime}" Width="180"/>
+                    <DataGridTextColumn Header="Obsłużono" Binding="{Binding Completed}" Width="140"/>
+                    <DataGridTextColumn Header="Odrzucono" Binding="{Binding Abandoned}" Width="140"/>
+                    <DataGridTextColumn Header="SLA" Binding="{Binding ServiceLevel}" Width="100"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+    </Grid>
+</Window>
