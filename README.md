@@ -1,8 +1,10 @@
 # WallBoardPBX
-
 ## Overview
 
-Designed for monitoring queues and queue agents in Asterisk IP PBX systems. It leverages the Asterisk Manager Interface (AMI) to interact with the Asterisk system, providing real-time data and notifications.
+Designed for monitoring queues and queue agents in Asterisk IP PBX systems. It leverages the Asterisk Manager Interface (AMI) to interact with the Asterisk system, providing real-time data and notifications.  
+  
+![App Screenshot](res/WallBoardPBX.PNG)
+
 ## Features
 
    Queue Monitoring: Track and manage queues within the Asterisk system.  
